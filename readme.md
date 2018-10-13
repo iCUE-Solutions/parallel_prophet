@@ -40,8 +40,7 @@ gcloud ml-engine jobs submit training JOB_NAME \
         --output_name prediction_results.csv
 ```
 
-The output file are the results of Facebook Prophet, and is stored in GCS.
-
+The output file are the results of Facebook Prophet Forecasting, they are stored in Google Cloud Storage
 
 If you want to run in your machine install dependencies:
 `pip install -r requirements.txt`
