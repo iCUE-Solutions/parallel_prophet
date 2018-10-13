@@ -44,6 +44,8 @@ The output file are the results of Facebook Prophet Forecasting, they are stored
 
 
 TODO:
++ add input flag for BASELINE or FORECASTING option
++ add input for start forecasting date, to end forecasting date
 + add flag when running on local machine
 + add path local input and output file
 + validate some stuff
