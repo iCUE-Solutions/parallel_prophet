@@ -42,10 +42,8 @@ gcloud ml-engine jobs submit training JOB_NAME \
 
 The output file are the results of Facebook Prophet Forecasting, they are stored in Google Cloud Storage
 
-If you want to run in your machine install dependencies:
-`pip install -r requirements.txt`
 
-Then you can use the following command:
-```
-python main.py --input_file gs://path/to/input_file.csv --index_column id --date_column date --y_column y --output_name prediction_results.csv
-```
+TODO:
++ add flag when running on local machine
++ add path local input and output file
++ validate some stuff
