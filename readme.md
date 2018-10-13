@@ -28,7 +28,7 @@ gcloud ml-engine jobs submit training JOB_NAME \
         --module-name=prophet_gcp.main \
         --package-path prophet_gcp/ \
         --region=us-east1 \
-        --staging-bucket=gs://spike-latam/ \
+        --staging-bucket=gs://your-stagin-bucket/ \
         --scale-tier=BASIC \
         --runtime-version=1.9 \
         -- \
