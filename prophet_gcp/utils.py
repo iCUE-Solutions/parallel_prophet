@@ -24,8 +24,9 @@ def get_frames_by_id(dataframe, index_col=None):
     indexs_vals = dataframe[index_col].unique().compute()
     dfs = []
     for index in indexs_vals:
-        d = dataframe[(dataframe[index_col] == index)].copy()
-        d = d.compute()
+        print("Doing ",index)
+        d = dataframe[(dataframe[index_col] == index)]
+        d = d.compute(scheduler='threads')
         dfs.append(d)
     return dfs
 
@@ -37,6 +38,6 @@ def write_results(dataframes=None, file_name=None):
             string: path to the output file
     """
     file_name = "output.csv" if file_name == None else file_name
-    dataframe_ = pd.concat(dataframes, axis=0)
+    dataframe_ = pd.concat(dataframes, axis=0, copy=False)
     dataframe_.to_csv(file_name)
     return file_name

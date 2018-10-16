@@ -29,7 +29,7 @@ def run(args):
 
     predictions = p.map(partial_func, dataframes)
     results_path = write_results(predictions,file_name=args.output_name)
-    save_in_gcs(results_path, args.output_path)
+    #save_in_gcs(results_path, args.output_path)
     print("Done in {0} minutes".format(   (time.time() - start)/60 ))
     
 if __name__ == "__main__":
