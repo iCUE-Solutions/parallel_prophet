@@ -6,9 +6,12 @@ from multiprocessing import Pool
 from nostradamus import run_prophet
 from multiprocessing import Pool, cpu_count
 from functools import partial
+import time
 
 def run(args):
-    #file_path = download_file_from_storage(args.input_file)
+
+    start = time.time()
+    file_path = download_file_from_storage(args.input_file)
     file_path = "/Users/maravenag/Desktop/sample.csv"
     index = args.index_column
     date_column = args.date_column
@@ -21,13 +24,14 @@ def run(args):
                             date_column=date_column, 
                             y_column=y_column,
                             index_column=index,
-                            type_=args.type
+                            type_=args.type,
                             start_date=args.start_date,
                             end_date=args.end_date)
 
     predictions = p.map(partial_func, dataframes)
     results_path = write_results(predictions,file_name=args.output_name)
-    #save_in_gcs(results_path, args.output_path)
+    print("done in {0} minutes".format(   (time.time() - start)/60 ))
+    save_in_gcs(results_path, args.output_path)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()

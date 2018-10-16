@@ -17,9 +17,9 @@ def run_prophet(timeserie, date_column="ds", y_column="y", index_column=None, ty
     timeserie.rename(columns={date_column: 'ds', y_column: 'y'}, inplace=True)
     idx = timeserie[index_column].unique()
 
-    if type_ = "baseline":
+    if type_ == "baseline":
         min_date, max_date = timeserie.ds.min(), timeserie.ds.max()
-    elif type_ ="forecast":
+    elif type_ == "forecast":
         min_date,max_date = start_date, end_date
     else:
         raise Exception("--type must be baseline or forecast")
