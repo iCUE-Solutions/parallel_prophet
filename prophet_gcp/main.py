@@ -12,8 +12,7 @@ import dill
 def run(args):
 
     start = time.time()
-    #file_path = download_file_from_storage(args.input_file)
-    file_path = "sample.csv"
+    file_path = download_file_from_storage(args.input_file)
     
     index = args.index_column
     date_column = args.date_column

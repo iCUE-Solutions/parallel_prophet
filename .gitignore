@@ -4,3 +4,4 @@ env/
 temp.txt
 *.csv
 *.dill
+__pycache__
