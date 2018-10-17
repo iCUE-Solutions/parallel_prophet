@@ -5,3 +5,4 @@ temp.txt
 *.csv
 *.dill
 __pycache__
+.vscode/
