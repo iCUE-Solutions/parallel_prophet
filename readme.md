@@ -39,13 +39,9 @@ gcloud ml-engine jobs submit training JOB_NAME \
         --y_column y \
         --type baseline \
         --y_column y \
-        --output_name prediction_results.csv
+        --output_name prediction_results.csv \
+        --start_date "yyy-MM-dd" \ #only if type is forecast
+        --end_date "yyy-MM-dd" \ #only if type is forecast
 ```
 
-The output file are the results of Facebook Prophet Forecasting, they are stored in Google Cloud Storage
-
-
-TODO:
-+ add flag when running on local machine
-+ add path local input and output file
-+ validate some stuff
+The output file are the results of Facebook Prophet Forecasting, they are stored in Google Cloud Storage, the aggregated time series are stored in GCS too with  `dill`. 
