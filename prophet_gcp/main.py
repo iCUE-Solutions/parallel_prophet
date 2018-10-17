@@ -12,17 +12,21 @@ import dill
 def run(args):
 
     start = time.time()
-    file_path = download_file_from_storage(args.input_file)
+    #file_path = download_file_from_storage(args.input_file)
+    file_path = "sample.csv"
+    
     index = args.index_column
     date_column = args.date_column
     y_column=args.y_column
 
     data = load_parse_file(file_path=file_path)
     dataframes = get_frames_by_id(dataframe=data, index_col=index)
-    
+
+    #save dataframes on google cloud storage 
     with open("dataframes.dill", "wb") as dill_file:
         dill.dump(dataframes, dill_file)
-        save_in_gcs("dataframes.dill", args.output_path)
+    dill_file.close()
+    save_in_gcs("dataframes.dill", args.output_path)
 
     p = Pool(cpu_count())
     partial_func = partial(run_prophet,
