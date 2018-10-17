@@ -6,3 +6,4 @@ temp.txt
 *.dill
 __pycache__
 .vscode/
+\.idea/

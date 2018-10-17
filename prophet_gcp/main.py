@@ -9,14 +9,18 @@ from functools import partial
 import time
 import dill
 
+
 def run(args):
 
     start = time.time()
-    file_path = download_file_from_storage(args.input_file)
-    
+    if args.local_file is not None:
+        file_path = download_file_from_storage(args.input_file)
+    else:
+        file_path = args.input_file
+
     index = args.index_column
     date_column = args.date_column
-    y_column=args.y_column
+    y_column = args.y_column
 
     data = load_parse_file(file_path=file_path)
     dataframes = get_frames_by_id(dataframe=data, index_col=index)
@@ -25,7 +29,10 @@ def run(args):
     with open("dataframes.dill", "wb") as dill_file:
         dill.dump(dataframes, dill_file)
     dill_file.close()
-    save_in_gcs("dataframes.dill", args.output_path)
+    if args.local_file is not None:
+        pass
+    else:
+        save_in_gcs("dataframes.dill", args.output_path)
 
     p = Pool(cpu_count())
     partial_func = partial(run_prophet,
@@ -37,10 +44,14 @@ def run(args):
                             end_date=args.end_date)
 
     predictions = p.map(partial_func, dataframes)
-    results_path = write_results(predictions,file_name=args.output_name)
-    save_in_gcs(results_path, args.output_path)
-    print("Done in {0} minutes".format(   (time.time() - start)/60 ))
-    
+    results_path = write_results(predictions, file_name=args.output_name)
+    if args.local_file is not None:
+        pass
+    else:
+        save_in_gcs(results_path, args.output_path)
+    print("Done in {0} minutes".format((time.time() - start)/60))
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('--input_file', type=str, help="Path to the GCS file")
@@ -52,5 +63,6 @@ if __name__ == "__main__":
     parser.add_argument('--type', type=str, help="baseline or forecast")
     parser.add_argument('--start_date', type=str, help="forecast start date", default=None)
     parser.add_argument('--end_date', type=str, help="baseline or forecast", default=None)
-    args = parser.parse_args()
-    run(args)
+    parser.add_argument('--local_file', type=str, help="Local file: yes or no", default=None)
+    myargs = parser.parse_args()
+    run(myargs)
