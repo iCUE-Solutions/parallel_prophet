@@ -7,6 +7,7 @@ from nostradamus import run_prophet
 from multiprocessing import Pool, cpu_count
 from functools import partial
 import time
+import dill
 
 def run(args):
 
@@ -18,6 +19,11 @@ def run(args):
 
     data = load_parse_file(file_path=file_path)
     dataframes = get_frames_by_id(dataframe=data, index_col=index)
+    
+    with open("dataframes.dill", "wb") as dill_file:
+        dill.dump(dataframes, dill_file)
+        save_in_gcs("dataframes.dill", args.output_path)
+
     p = Pool(cpu_count())
     partial_func = partial(run_prophet,
                             date_column=date_column, 
@@ -29,7 +35,7 @@ def run(args):
 
     predictions = p.map(partial_func, dataframes)
     results_path = write_results(predictions,file_name=args.output_name)
-    #save_in_gcs(results_path, args.output_path)
+    save_in_gcs(results_path, args.output_path)
     print("Done in {0} minutes".format(   (time.time() - start)/60 ))
     
 if __name__ == "__main__":
