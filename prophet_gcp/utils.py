@@ -1,6 +1,7 @@
 import dask.dataframe as dd
 import pandas as pd
 
+
 def load_parse_file(file_path, date_column="date"):
     """Loads a file into Pandas dataframe, and parse the datetime columns
         Arguments:
@@ -11,6 +12,7 @@ def load_parse_file(file_path, date_column="date"):
     data = dd.read_csv(file_path)
     data[date_column] =  dd.to_datetime(data[date_column], format='%Y-%m-%d')
     return data
+
 
 def get_frames_by_id(dataframe, index_col=None):
     """Group by the dataframe by index
@@ -30,6 +32,7 @@ def get_frames_by_id(dataframe, index_col=None):
         dfs.append(d)
     return dfs
 
+
 def write_results(dataframes=None, file_name=None):
     """Group by the dataframe by index
         Arguments:
@@ -38,6 +41,6 @@ def write_results(dataframes=None, file_name=None):
             string: path to the output file
     """
     file_name = "output.csv" if file_name == None else file_name
-    dataframe_ = pd.concat(dataframes, axis=0, copy=False)
+    dataframe_ = pd.concat(dataframes, axis=0, copy=False, sort=False)
     dataframe_.to_csv(file_name)
     return file_name
