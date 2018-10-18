@@ -2,6 +2,7 @@ import subprocess
 import os
 import sys
 
+
 def download_file_from_storage(gs_file_path):
     """download a file from GCS into ml-engine running container
         Arguments:
@@ -13,6 +14,7 @@ def download_file_from_storage(gs_file_path):
     subprocess.check_call(['gsutil','-q', 'cp', gs_file_path, file_name], stderr=sys.stdout)
     path = "{0}/{1}".format(os.getcwd(),file_name)
     return path
+
 
 def save_in_gcs(file_path, gcs_path):
     """Store a file into GCS

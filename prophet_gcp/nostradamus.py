@@ -13,8 +13,8 @@ def run_prophet(timeseries, date_column="ds", y_column="y", index_column=None, t
         Returns:
             Dataframe: pandas.Dataframe with the forecast result
     """
-    assert index_column != None, "Must indicate an index_column"
-    assert type_ != None, "Must specify baseline or forecast"
+    assert index_column is not None, "Must indicate an index_column"
+    assert type_ is not None, "Must specify baseline or forecast"
 
     timeseries.rename(columns={date_column: 'ds', y_column: 'y'}, inplace=True)
     idx = timeseries[index_column].unique()
