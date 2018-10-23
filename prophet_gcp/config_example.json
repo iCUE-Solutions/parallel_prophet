@@ -1,6 +1,6 @@
 {
     "prophet_obj_kwds": {
-        "growth": "linear", "n_changepoints": 18
+        "growth": "linear", "n_changepoints": 18, "uncertainty_samples": 500
     }, 
     "predict_kwds": {
         
