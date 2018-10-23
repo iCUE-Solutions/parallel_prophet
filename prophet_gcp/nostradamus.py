@@ -29,7 +29,7 @@ def run_prophet(timeseries, date_column="ds", y_column="y", index_column=None, t
     time_index = _create_index_timeserie(min_date, max_date)
     model = Prophet(yearly_seasonality=True, **prophet_obj_kwds)
     model.add_seasonality(name='monthly', period=30.5, fourier_order=5)
-    model.fit(timeseries, **fit_kwds)
+    model.fit(timeseries, verbose=False)
     forecast = model.predict(time_index, **predict_kwds)
     forecast['index_column'] = idx[0]
 

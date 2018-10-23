@@ -1,5 +1,5 @@
 import pandas as pd
-
+from tqdm import tqdm
 
 def load_parse_file(file_path, date_column="date"):
     """Loads a file into Pandas dataframe, and parse the datetime columns
@@ -24,8 +24,10 @@ def get_frames_by_id(dataframe, index_col=None):
     assert index_col != None, "Must specify and index column"
     indexs_vals = dataframe[index_col].unique()
     dfs = []
+    print("INFO: Spliting the dataframes...")
+    pbar = tqdm(total=len(indexs_vals))
     for index in indexs_vals:
-        print("Doing ",index)
+        pbar.update(1)
         d = dataframe[(dataframe[index_col] == index)]
         dfs.append(d)
     return dfs
