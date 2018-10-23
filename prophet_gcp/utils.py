@@ -1,4 +1,3 @@
-import dask.dataframe as dd
 import pandas as pd
 
 
@@ -9,8 +8,8 @@ def load_parse_file(file_path, date_column="date"):
         Returns:
             Dataframe: dask.dataframe from the file
     """
-    data = dd.read_csv(file_path)
-    data[date_column] =  dd.to_datetime(data[date_column], format='%Y-%m-%d')
+    data = pd.read_csv(file_path)
+    data[date_column] =  pd.to_datetime(data[date_column], format='%Y-%m-%d')
     return data
 
 
@@ -23,12 +22,11 @@ def get_frames_by_id(dataframe, index_col=None):
             list: list of dask.dataframe with the data filtered
     """
     assert index_col != None, "Must specify and index column"
-    indexs_vals = dataframe[index_col].unique().compute()
+    indexs_vals = dataframe[index_col].unique()
     dfs = []
     for index in indexs_vals:
         print("Doing ",index)
         d = dataframe[(dataframe[index_col] == index)]
-        d = d.compute(scheduler='processes')
         dfs.append(d)
     return dfs
 

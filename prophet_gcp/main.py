@@ -14,7 +14,8 @@ import json
 def run(args):
 
     start = time.time()
-    if args.local_file is not None:
+
+    if args.local_file is None:
         file_path = download_file_from_storage(args.input_file)
     else:
         file_path = args.input_file
