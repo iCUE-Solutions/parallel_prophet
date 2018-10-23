@@ -28,7 +28,7 @@ def get_frames_by_id(dataframe, index_col=None):
     for index in indexs_vals:
         print("Doing ",index)
         d = dataframe[(dataframe[index_col] == index)]
-        d = d.compute(scheduler='threads')
+        d = d.compute(scheduler='processes')
         dfs.append(d)
     return dfs
 

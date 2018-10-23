@@ -72,7 +72,7 @@ if __name__ == "__main__":
     parser.add_argument('--y_column', type=str, help="y column")
     parser.add_argument('--output_name', type=str, help="output csv file name")
     parser.add_argument('--type', type=str, help="baseline or forecast")
-    parser.add_argument('--prophet_options', type=str, help="file name with prophet options")
+    parser.add_argument('--prophet_options', type=str, help="file name with prophet options", default=None)
     parser.add_argument('--start_date', type=str, help="forecast start date", default=None)
     parser.add_argument('--end_date', type=str, help="baseline or forecast", default=None)
     parser.add_argument('--local_file', type=str, help="Local file: yes or no", default=None)
