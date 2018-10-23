@@ -30,6 +30,7 @@ def get_frames_by_id(dataframe, index_col=None):
         pbar.update(1)
         d = dataframe[(dataframe[index_col] == index)]
         dfs.append(d)
+    pbar.close()
     return dfs
 
 
