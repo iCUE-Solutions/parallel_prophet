@@ -15,12 +15,11 @@ def run(args):
 
     start = time.time()
 
-    #if args.local_file is None:
-    #    file_path = download_file_from_storage(args.input_file)
-    #else:
-    #    file_path = args.input_file
+    if args.local_file is None:
+        file_path = download_file_from_storage(args.input_file)
+    else:
+        file_path = args.input_file
 
-    file_path ="productos_prophet.csv"
     index = args.index_column
     date_column = args.date_column
     y_column = args.y_column
